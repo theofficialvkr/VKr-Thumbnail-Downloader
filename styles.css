@@ -153,7 +153,9 @@ button:hover {
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-
+#downloadLink{
+  margin-bottom:20px;
+}
 @keyframes spin {
   to {
     transform: rotate(360deg);
