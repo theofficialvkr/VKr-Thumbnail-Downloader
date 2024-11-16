@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // AJAX request to fetch the thumbnail
   const fetchThumbnail = (url) => {
     const xhr = new XMLHttpRequest();
-    const endpoint = `https://vkrthumb.vercel.app/fetch-thumbnail?url=${encodeURIComponent(url)}`;
+    const endpoint = `https://vkrdownloader.xyz/server/thumb.php?vkr=${encodeURIComponent(url)}`;
 
     // Show loading spinner
     loadingElement.classList.remove("hidden");
