@@ -75,6 +75,7 @@
       popup.addEventListener("click", (event) => {
         if (event.target === popup) {
           popup.classList.remove("active");
+          loadingElement.style.opacity = "0";
         }
       });
     });
