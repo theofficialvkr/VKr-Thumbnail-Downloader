@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Thumbnail Downloader</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Thumb_DL</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#footer">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+    <div class="card">
+      <h1>Download Website Thumbnails</h1>
+      <p>Enter any website URL to fetch its thumbnail</p>
+      <form id="thumbnailForm">
+        <input 
+          type="url" 
+          id="videoUrl" 
+          placeholder="Enter any valid URL" 
+          required>
+        <button type="submit">Fetch Thumbnail</button>
+      </form>
+      <div id="error" class="error-message"></div>
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Fetching thumbnail...</p>
+      </div>
+      <div id="result" class="result hidden">
+        <h2>Thumbnail Preview:</h2>
+        <img id="thumbnailImage" alt="Thumbnail">
+        <a id="downloadLink" href="#" download="thumbnail.jpg">Download</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="footer" class="footer">
+    <p>© 2024 Thumbnail Fetcher | Designed with ❤️ for the web</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
