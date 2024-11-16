@@ -1,4 +1,4 @@
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("thumbnailForm");
   const videoUrlInput = document.getElementById("videoUrl");
   const errorElement = document.getElementById("error");
@@ -26,7 +26,7 @@
   // AJAX request to fetch the thumbnail
   const fetchThumbnail = (url) => {
     const xhr = new XMLHttpRequest();
-    const endpoint = `https://vkrdownloader.xyz/server/thumb.php?vkr=${encodeURIComponent(url)}`;
+    const endpoint = `https://vkrthumb.vercel.app/fetch-thumbnail?url=${encodeURIComponent(url)}`;
 
     // Show loading spinner
     loadingElement.classList.remove("hidden");
@@ -45,6 +45,7 @@
               resultSection.classList.remove("hidden");
               thumbnailImage.src = data.image_data;
               downloadLink.href = data.image_data;
+              downloadLink.download = "thumbnail.jpg";  // Set filename for download
               errorElement.textContent = "";
             } else {
               throw new Error("No thumbnail found for this URL.");
@@ -82,5 +83,13 @@
     }
 
     fetchThumbnail(url);
+  });
+
+  // Handle download link click (ensures the download starts)
+  downloadLink.addEventListener("click", (e) => {
+    if (!downloadLink.href) {
+      e.preventDefault();
+      handleError("No thumbnail available for download.");
+    }
   });
 });
