@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const thumbnailImage = document.getElementById("thumbnailImage");
   const downloadLink = document.getElementById("downloadLink");
 
+  // Function to validate URL format
   const isValidUrl = (url) => {
     try {
       new URL(url);
@@ -16,18 +17,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // Function to handle errors and update the error message display
+  const handleError = (message) => {
+    resultSection.classList.add("hidden");
+    errorElement.textContent = message;
+  };
+
+  // AJAX request to fetch the thumbnail
   const fetchThumbnail = (url) => {
     const xhr = new XMLHttpRequest();
     const endpoint = `https://vkrthumb.vercel.app/fetch-thumbnail?url=${encodeURIComponent(url)}`;
-    
+
+    // Show loading spinner
     loadingElement.classList.remove("hidden");
 
     xhr.open("GET", endpoint, true);
+    
+    // Set up the request callback for state changes
     xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) { // Request is complete
+      if (xhr.readyState === 4) { // Request completed
         loadingElement.classList.add("hidden");
 
-        if (xhr.status === 200) {
+        if (xhr.status === 200) { // Success
           try {
             const data = JSON.parse(xhr.responseText);
             if (data.image_data) {
@@ -39,27 +50,28 @@ document.addEventListener("DOMContentLoaded", () => {
               throw new Error("No thumbnail found for this URL.");
             }
           } catch (err) {
-            handleError(err.message);
+            console.error("Error parsing JSON response:", err);
+            handleError("Failed to parse thumbnail data.");
           }
         } else {
+          console.error(`Error ${xhr.status}: ${xhr.statusText}`);
           handleError(`Error ${xhr.status}: Unable to fetch thumbnail.`);
         }
       }
     };
 
+    // Handle network or other errors
     xhr.onerror = () => {
       loadingElement.classList.add("hidden");
+      console.error("Network error: ", xhr.statusText);
       handleError("Network error. Please try again later.");
     };
 
+    // Send the request
     xhr.send();
   };
 
-  const handleError = (message) => {
-    resultSection.classList.add("hidden");
-    errorElement.textContent = message;
-  };
-
+  // Form submit event listener
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const url = videoUrlInput.value.trim();
