@@ -16,29 +16,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const fetchThumbnail = async (url) => {
-    try {
-      loadingElement.classList.remove("hidden");
-      const response = await fetch(
-        `https://vkrthumb.vercel.app/fetch-thumbnail?url=${encodeURIComponent(url)}`
-      );
-      const data = await response.json();
+  const fetchThumbnail = (url) => {
+    const xhr = new XMLHttpRequest();
+    const endpoint = `https://vkrthumb.vercel.app/fetch-thumbnail?url=${encodeURIComponent(url)}`;
+    
+    loadingElement.classList.remove("hidden");
 
-      loadingElement.classList.add("hidden");
+    xhr.open("GET", endpoint, true);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) { // Request is complete
+        loadingElement.classList.add("hidden");
 
-      if (data.image_data) {
-        resultSection.classList.remove("hidden");
-        thumbnailImage.src = data.image_data;
-        downloadLink.href = data.image_data;
-        errorElement.textContent = "";
-      } else {
-        throw new Error("No thumbnail found for this URL.");
+        if (xhr.status === 200) {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            if (data.image_data) {
+              resultSection.classList.remove("hidden");
+              thumbnailImage.src = data.image_data;
+              downloadLink.href = data.image_data;
+              errorElement.textContent = "";
+            } else {
+              throw new Error("No thumbnail found for this URL.");
+            }
+          } catch (err) {
+            handleError(err.message);
+          }
+        } else {
+          handleError(`Error ${xhr.status}: Unable to fetch thumbnail.`);
+        }
       }
-    } catch (error) {
+    };
+
+    xhr.onerror = () => {
       loadingElement.classList.add("hidden");
-      resultSection.classList.add("hidden");
-      errorElement.textContent = error.message;
-    }
+      handleError("Network error. Please try again later.");
+    };
+
+    xhr.send();
+  };
+
+  const handleError = (message) => {
+    resultSection.classList.add("hidden");
+    errorElement.textContent = message;
   };
 
   form.addEventListener("submit", (e) => {
@@ -46,8 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const url = videoUrlInput.value.trim();
 
     if (!isValidUrl(url)) {
-      errorElement.textContent = "Please enter a valid URL.";
-      resultSection.classList.add("hidden");
+      handleError("Please enter a valid URL.");
       return;
     }
 
