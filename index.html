@@ -1,55 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Thumbnail Downloader</title>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/forms@0.4.0"></script>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Vijay Kumar">
+    <meta name="description" content="Download YouTube and other video platform thumbnails with enhanced UI and functionality.">
+    <meta name="keywords" content="YouTube, download thumbnail, video downloader, thumbnail fetcher, YouTube thumbnail, video, download">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Video Thumbnail Fetcher">
+    <meta property="og:description" content="Fetch thumbnails from YouTube and other video platforms with ease.">
+    <meta property="og:image" content="/logo.png">
+    <meta property="og:url" content="https://theofficialvkr.github.io/VKr-Thumbnail-Downloader/">
+    <meta name="twitter:title" content="Video Thumbnail Fetcher">
+    <meta name="twitter:description" content="Fetch thumbnails from YouTube and other video platforms with ease.">
+    <meta name="twitter:image" content="/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Video Thumbnail Fetcher</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- External JS libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> <!-- For 3D animations -->
 </head>
+
 <body>
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="logo"><img src="logo.png"></div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#footer">Contact</a></li>
-    </ul>
-  </nav>
+    <!-- Loading Animation -->
+    <div id="loading" class="loading-animation"></div>
 
-  <!-- Main Container -->
-  <div class="container">
-    <div class="card">
-      <h1>Download Website Thumbnails</h1>
-      <p>Enter any website URL to fetch its thumbnail</p>
-      <form id="thumbnailForm">
-        <input type="url" id="videoUrl" placeholder="Enter any valid URL" required>
-        <button type="submit">Fetch Thumbnail</button>
-      </form>
-      <div id="error" class="error-message"></div>
-      <div id="loading" class="loading">
-        <div class="spinner"></div>
-        <p>Fetching thumbnail...</p>
-      </div>
+    <!-- Error Message -->
+    <div id="error-message" class="error-message" style="display:none;"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Video Thumbnail Fetcher</h1>
+        
+        <form id="fetchForm">
+            <label for="videoUrl">Enter Video URL:</label>
+            <input type="url" id="videoUrl" name="videoUrl" required />
+            <button type="submit">Fetch Thumbnail</button>
+        </form>
+
+        <!-- Thumbnail Preview Popup -->
+        <div id="thumbnailPopup" class="popup">
+            <div class="popup-content">
+                <img id="thumbnailPreview" src="" alt="Thumbnail Preview">
+                <a id="downloadLink" href="" download>Download Thumbnail</a>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <footer id="footer" class="footer">
-    <p>© 2024 Thumbnail Fetcher | Designed with ❤️ for the web</p>
-  </footer>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Video Thumbnail Fetcher | All rights reserved.</p>
+    </footer>
 
-  <!-- Result Popup -->
-  <div id="popup" class="popup">
-    <div class="popup-content">
-      <h2>Thumbnail Preview</h2>
-      <img id="thumbnailImage" alt="Thumbnail">
-      <a id="downloadLink" href="#" download>Download Thumbnail</a>
-    </div>
-  </div>
-  <script src="script.js"></script>
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+
+    <!-- Social Media sharing links -->
+    <a href="https://twitter.com/share?url=https://theofficialvkr.github.io/VKr-Thumbnail-Downloader/&text=Download%20Video%20Thumbnails%20easily%20with%20our%20tool" target="_blank">Share on Twitter</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://theofficialvkr.github.io/VKr-Thumbnail-Downloader/" target="_blank">Share on Facebook</a>
 </body>
+
 </html>
